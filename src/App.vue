@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <!-- <v-app>
     <v-app-bar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>Vuetify</span>
@@ -16,21 +16,25 @@
     </v-app-bar>
 
     <v-content>
-      <HelloWorld/>
+      
     </v-content>
-  </v-app>
+  </v-app>-->
+
+  <Scaffold></Scaffold>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import HelloWorld from "./components/HelloWorld";
+import Scaffold from "./views/Scaffold";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld,
+    Scaffold,
+    HelloWorld
   },
   data: () => ({
     //
-  }),
+  })
 };
 </script>
