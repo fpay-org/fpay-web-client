@@ -12,10 +12,10 @@
           <div class="mt-4 mx-4">
             <form role="form">
               <base-input
-                placeholder="Email"
+                placeholder="Officer ID"
                 addon-left-icon="ni ni-email-83"
-                :valid="validEmail"
-                v-model="formdata.email"
+                :valid="validID"
+                v-model="formdata.officerID"
               ></base-input>
               <base-input
                 type="password"
@@ -23,11 +23,13 @@
                 addon-left-icon="ni ni-lock-circle-open"
                 v-model="formdata.password"
               ></base-input>
-              <base-checkbox v-model="formdata.remember">Remember me</base-checkbox>
+              <base-checkbox v-model="formdata.remember"
+                >Remember me</base-checkbox
+              >
             </form>
             <div class="mt-4">
               <v-row class="justify-center">
-                or&nbsp
+                or&nbsp;
                 <div class="a-register">
                   <a @click="toggleForm()">Register</a>
                 </div>
@@ -44,7 +46,11 @@
       <!-- End of login section -->
 
       <!-- Register section -->
-      <v-card color="blue-grey lighten-5" :loading="isLoading" v-if="!loginForm">
+      <v-card
+        color="blue-grey lighten-5"
+        :loading="isLoading"
+        v-if="!loginForm"
+      >
         <v-card-title class="justify-center">
           <div class="mt-4">Welcome!</div>
         </v-card-title>
@@ -58,10 +64,10 @@
                 v-model="formdata.username"
               ></base-input>
               <base-input
-                placeholder="Email"
+                placeholder="Officer ID"
                 addon-left-icon="ni ni-email-83"
-                :valid="validEmail"
-                v-model="formdata.email"
+                :valid="validID"
+                v-model="formdata.officerID"
               ></base-input>
               <base-input
                 type="password"
@@ -70,11 +76,13 @@
                 :valid="validPassword"
                 v-model="formdata.password"
               ></base-input>
-              <base-checkbox v-model="formdata.remember">Remember me</base-checkbox>
+              <base-checkbox v-model="formdata.remember"
+                >Remember me</base-checkbox
+              >
             </form>
             <div class="mt-4">
               <v-row class="justify-center">
-                or&nbsp
+                or&nbsp;
                 <div class="a-register">
                   <a @click="toggleForm()">Login</a>
                 </div>
@@ -94,8 +102,11 @@
 </template>
 
 <script>
+import { login } from "../../services/auth";
+import { setToken } from "../../services/jwt";
+
 export default {
-  name: "Login",
+  name: "login",
   data() {
     return {
       dialog: false,
@@ -104,7 +115,7 @@ export default {
       isLocked: false,
       formdata: {
         username: "",
-        email: "",
+        officerID: "",
         password: "",
         remember: false
       }
@@ -116,10 +127,9 @@ export default {
         return this.formdata.username.length > 4;
       else return null;
     },
-    validEmail: function() {
-      if (this.formdata.email != "") {
-        var valid = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return valid.test(String(this.formdata.email).toLowerCase());
+    validID: function() {
+      if (this.formdata.officerID != "") {
+        return this.formdata.officerID.length == 6;
       } else return null;
     },
     validPassword: function() {
@@ -131,7 +141,7 @@ export default {
   methods: {
     resetForm() {
       this.formdata.username = "";
-      this.formdata.email = "";
+      this.formdata.officerID = "";
       this.formdata.password = "";
       this.formdata.remember = "";
     },
@@ -143,6 +153,11 @@ export default {
       this.isLoading = "blue";
       this.isLocked = true;
       console.log(this.formdata);
+
+      login(this.formdata.officerID, this.formdata.password).then(res => {
+        setToken(res.data.data.token);
+        this.$router.push({ path: "/console/analytics" });
+      });
     },
     register() {
       this.isLoading = "blue";

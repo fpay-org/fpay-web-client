@@ -1,24 +1,19 @@
 <template>
   <v-app-bar app dark elevation="0">
-    <Login></Login>
+    <login></login>
   </v-app-bar>
 </template>
 
 <script>
-import Login from "../auth/Login";
+import login from "../dialogs/Login";
 
 export default {
-  name: "Appbar",
+  name: "appbar",
   components: {
-    Login
+    login
   },
-  methods: {
-    openLogin() {
-      console.log("Fuck");
-    }
-  }
+  methods: {}
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

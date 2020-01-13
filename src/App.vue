@@ -20,21 +20,20 @@
     </v-content>
   </v-app>-->
 
-  <Scaffold></Scaffold>
+  <scaffold></scaffold>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
-import Scaffold from "./views/Scaffold";
+import scaffold from "./views/Scaffold";
 
 export default {
   name: "App",
   components: {
-    Scaffold,
-    HelloWorld
+    scaffold
+    // HelloWorld
   },
-  data: () => ({
-    //
-  })
+  created() {
+    // this.$vuetify.theme.dark = true;
+  }
 };
 </script>

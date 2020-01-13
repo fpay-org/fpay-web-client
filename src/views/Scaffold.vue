@@ -1,21 +1,14 @@
 <template>
   <v-app>
-    <Appbar></Appbar>
+    <router-view></router-view>
   </v-app>
 </template>
 
 <script>
-// import BaseNav from '../components/BaseNav';
-import Appbar from "../components/shared/Appbar";
-
 export default {
-  name: "Scaffold",
-  components: {
-    // BaseNav
-    Appbar,
-  }
+  name: "scaffold",
+  components: {}
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
