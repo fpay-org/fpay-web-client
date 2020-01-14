@@ -72,6 +72,8 @@ export default {
   created() {},
   methods: {
     onNavigation(id) {
+      const path = `/console/${id}`;
+      if ($route.path !== path) this.$router.push(path)
       this.$router.push({ path: `/console/${id}` });
     }
   },
