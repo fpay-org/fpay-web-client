@@ -1,6 +1,14 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
+
+import home from "./views/Home";
+
+import console from "./views/console/Console";
+import analytics from "./views/console/analytics/Analytics";
+import news from "./views/console/news-feed/News";
+import reports from "./views/console/reports/Reports";
+import user from "./views/console/user/User";
+import settings from "./views/console/settings/Settings";
 
 Vue.use(Router);
 
@@ -8,18 +16,44 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
-      component: Home
+      component: home
     },
     {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
+      path: "/console",
+      component: console,
+      children: [
+        {
+          path: "analytics",
+          component: analytics
+        },
+        {
+          path: "news-feed",
+          component: news
+        },
+        {
+          path: "reports",
+          component: reports
+        },
+        {
+          path: "user-management",
+          component: user
+        },
+        {
+          path: "settings",
+          component: settings
+        },
+        {
+          path: "",
+          redirect: "analytics"
+        }
+      ]
     }
+    // {
+    //   path: "/about",
+    //   name: "about"
+    //   // component: () =>
+    //   //   import(/* webpackChunkName: "about" */ "./views/About.vue")
+    // }
   ],
   scrollBehavior: to => {
     if (to.hash) {

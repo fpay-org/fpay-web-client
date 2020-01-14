@@ -1,13 +1,10 @@
 <template>
-  <v-app>
-    <router-view></router-view>
-  </v-app>
+  <div></div>
 </template>
 
 <script>
 export default {
-  name: "scaffold",
-  components: {}
+  name: "user"
 };
 </script>
 
