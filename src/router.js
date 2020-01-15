@@ -7,7 +7,7 @@ import console from "./views/console/Console";
 import analytics from "./views/console/analytics/Analytics";
 import news from "./views/console/news-feed/News";
 import reports from "./views/console/reports/Reports";
-import user from "./views/console/user/User";
+import officer from "./views/console/user/Officer";
 import settings from "./views/console/settings/Settings";
 
 Vue.use(Router);
@@ -35,8 +35,8 @@ export default new Router({
           component: reports
         },
         {
-          path: "user-management",
-          component: user
+          path: "officers",
+          component: officer
         },
         {
           path: "settings",
@@ -45,8 +45,16 @@ export default new Router({
         {
           path: "",
           redirect: "analytics"
+        },
+        {
+          path: "*",
+          redirect: "analytics"
         }
       ]
+    },
+    {
+      path: "*",
+      redirect: "/"
     }
     // {
     //   path: "/about",

@@ -37,3 +37,8 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+.vertical-spacer {
+  height: 1rem;
+}
+</style>

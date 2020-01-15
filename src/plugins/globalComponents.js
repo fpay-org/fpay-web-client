@@ -8,6 +8,7 @@ import BaseProgress from "../components/argon/BaseProgress";
 import BaseRadio from "../components/argon/BaseRadio";
 import BaseSlider from "../components/argon/BaseSlider";
 import BaseSwitch from "../components/argon/BaseSwitch";
+import BaseDropdown from "../components/argon/BaseDropdown";
 import Card from "../components/argon/Card";
 import Icon from "../components/argon/Icon";
 
@@ -23,6 +24,7 @@ export default {
     Vue.component(BaseRadio.name, BaseRadio);
     Vue.component(BaseSlider.name, BaseSlider);
     Vue.component(BaseSwitch.name, BaseSwitch);
+    Vue.component(BaseDropdown.name, BaseDropdown);
     Vue.component(Card.name, Card);
     Vue.component(Icon.name, Icon);
   }
