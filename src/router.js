@@ -5,6 +5,7 @@ import home from "./views/Home";
 
 import console from "./views/console/Console";
 import analytics from "./views/console/analytics/Analytics";
+import heatmap from "./views/console/analytics/Heatmap";
 import news from "./views/console/news-feed/News";
 import reports from "./views/console/reports/Reports";
 import officers from "./views/console/user/Officers";
@@ -28,6 +29,10 @@ export default new Router({
         {
           path: "analytics",
           component: analytics
+        },
+        {
+          path: "heatmap",
+          component: heatmap
         },
         {
           path: "news-feed",
