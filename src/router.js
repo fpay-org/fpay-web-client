@@ -9,17 +9,19 @@ import news from "./views/console/news-feed/News";
 import reports from "./views/console/reports/Reports";
 import officer from "./views/console/user/Officer";
 import settings from "./views/console/settings/Settings";
+import profile from "./views/console/profile";
 
 Vue.use(Router);
 
 export default new Router({
+  
   routes: [
     {
       path: "/",
       component: home
     },
     {
-      path: "/console",
+    path: "/console",
       component: console,
       children: [
         {
@@ -63,6 +65,7 @@ export default new Router({
     //   //   import(/* webpackChunkName: "about" */ "./views/About.vue")
     // }
   ],
+ 
   scrollBehavior: to => {
     if (to.hash) {
       return { selector: to.hash };

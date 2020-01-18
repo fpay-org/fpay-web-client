@@ -76,6 +76,8 @@
       </v-menu>
     </v-app-bar>
 
+    
+
     <v-content>
       <v-container>
         <router-view></router-view>
@@ -89,6 +91,7 @@
 </template>
 
 <script>
+
 export default {
   name: "console",
   props: {
@@ -126,12 +129,16 @@ export default {
       }
     ]
   }),
+
+
+
   created() {},
   methods: {
     onNavigation(id) {
       const path = `/console/${id}`;
       if (this.$route.path !== path) this.$router.push(path);
     }
+    
   },
   filters: {
     toNavTitle: function(id) {
