@@ -104,7 +104,8 @@ export default {
       {
         id: "analytics",
         icon: "mdi-view-dashboard",
-        expansion: false
+        expansion: true,
+        children: ["analytics", "heatmap"]
       },
       {
         id: "news-feed",
