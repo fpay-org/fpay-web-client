@@ -1,20 +1,20 @@
 <template>
     <div id="profile">
-   <div>
-    <v-app-bar color="grey accent-" dense dark>
-      <v-toolbar-title>User Profile</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-      <router-link to="/console">Logout</router-link>
-
-   </v-app-bar>
+    <div class="row">
+  <div class="col-sm-6">
+     
+       <v-avatar size="300">
+              <img
+                src="https://cdn.vuetifyjs.com/images/john.jpg"
+                alt="User avatar here"
+              />
+            </v-avatar>
+    
   </div>
-  <h1 style="text-align:center;">fpay user profile</h1>
-
-    <v-card class="mx-auto" max-width="600">
-    <v-img height="200px" weight="200px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"></v-img>
-      
-    <v-card-text class="text--primary">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body bg-dark" >
+        <v-card-text class="text-white">
     <p> User name : </p>
     <p> Officer ID : </p>
     <p> first name : </p>
@@ -22,10 +22,30 @@
     <p> ploce station : </p>
     <p> rank : </p>
     </v-card-text>
-
-  </v-card>  
-   
+      </div>
     </div>
+  </div>
+</div> 
+
+
+<h3>fines issued by officer </h3>
+  <v-simple-table dark fixed-header height="300px" >
+    <template v-slot:default>
+      <thead>
+        <tr>
+          <th class="text-left">Location</th>
+          <th class="text-left">Fine</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>colombo</td>
+          <td>issued a fine</td>
+        </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
+  </div>   
 </template>
 
 <script>

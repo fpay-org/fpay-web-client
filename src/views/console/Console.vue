@@ -7,19 +7,13 @@
             <v-expansion-panel>
               <v-expansion-panel-header>
                 <div class="row">
-                  <v-icon>
-                    {{ navigation.icon }}
-                  </v-icon>
-                  <div class="nav-id">
-                    {{ navigation.id | toNavTitle }}
-                  </div>
+                  <v-icon>{{ navigation.icon }}</v-icon>
+                  <div class="nav-id">{{ navigation.id | toNavTitle }}</div>
                 </div>
               </v-expansion-panel-header>
               <v-expansion-panel-content>
                 <div v-for="child in navigation.children" :key="child">
-                  <div class="nav-item" @click="onNavigation(child)">
-                    {{ child }}
-                  </div>
+                  <div class="nav-item" @click="onNavigation(child)">{{ child }}</div>
                   <div class="vertical-spacer-sm"></div>
                 </div>
               </v-expansion-panel-content>
@@ -36,9 +30,11 @@
               <v-icon>{{ navigation.icon }}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>{{
+              <v-list-item-title>
+                {{
                 navigation.id | toNavTitle
-              }}</v-list-item-title>
+                }}
+              </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </div>
@@ -58,25 +54,18 @@
         <v-list nav min-width="180">
           <div class="row justify-center">
             <v-avatar size="120">
-              <img
-                src="https://cdn.vuetifyjs.com/images/john.jpg"
-                alt="User avatar here"
-              />
+              <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="User avatar here" />
             </v-avatar>
           </div>
           <div class="vertical-spacer-sm"></div>
           <div v-for="name in dropdown" :key="name">
-            <v-list-item link>
-              <v-list-item-title>
-                {{ name }}
-              </v-list-item-title>
+            <v-list-item link @click="onDropClick(name)">
+              <v-list-item-title>{{ name }}</v-list-item-title>
             </v-list-item>
           </div>
         </v-list>
       </v-menu>
     </v-app-bar>
-
-    
 
     <v-content>
       <v-container>
@@ -91,7 +80,6 @@
 </template>
 
 <script>
-
 export default {
   name: "console",
   props: {
@@ -131,15 +119,25 @@ export default {
     ]
   }),
 
-
-
   created() {},
   methods: {
     onNavigation(id) {
       const path = `/console/${id}`;
       if (this.$route.path !== path) this.$router.push(path);
+    },
+    onDropClick(name) {
+      switch (name) {
+        case "Profile":
+          this.$router.push({ path: "/console/profile" });
+          break;
+        case "Log Out":
+          this.$router.push({ path: "/components/dialogs/login" });
+          break;
+
+        default:
+          break;
+      }
     }
-    
   },
   filters: {
     toNavTitle: function(id) {
