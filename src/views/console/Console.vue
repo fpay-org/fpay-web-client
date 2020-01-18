@@ -130,6 +130,9 @@ export default {
         case "Profile":
           this.$router.push({ path: "/console/profile" });
           break;
+        case "Log Out":
+          this.$router.push({ path: "/components/dialogs/login" });
+          break;
 
         default:
           break;
