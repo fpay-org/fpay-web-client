@@ -38,7 +38,13 @@ export default {
 };
 </script>
 <style lang="scss">
+@import "../node_modules/leaflet/dist/leaflet.css";
+
 .vertical-spacer {
   height: 1rem;
+}
+
+.vertical-spacer-sm {
+  height: 0.5rem;
 }
 </style>

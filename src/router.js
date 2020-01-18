@@ -5,9 +5,11 @@ import home from "./views/Home";
 
 import console from "./views/console/Console";
 import analytics from "./views/console/analytics/Analytics";
+import heatmap from "./views/console/analytics/Heatmap";
 import news from "./views/console/news-feed/News";
 import reports from "./views/console/reports/Reports";
-import officer from "./views/console/user/Officer";
+import officers from "./views/console/user/Officers";
+import drivers from "./views/console/user/Drivers";
 import settings from "./views/console/settings/Settings";
 import profile from "./views/console/profile";
 
@@ -29,6 +31,10 @@ export default new Router({
           component: analytics
         },
         {
+          path: "heatmap",
+          component: heatmap
+        },
+        {
           path: "news-feed",
           component: news
         },
@@ -38,7 +44,11 @@ export default new Router({
         },
         {
           path: "officers",
-          component: officer
+          component: officers
+        },
+        {
+          path: "drivers",
+          component: drivers
         },
         {
           path: "settings",
