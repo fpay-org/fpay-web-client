@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app>
     <v-navigation-drawer v-model="drawer" app clipped>
       <v-list dense nav>
         <div v-for="navigation in navigations" :key="navigation.id">
@@ -13,7 +13,9 @@
               </v-expansion-panel-header>
               <v-expansion-panel-content>
                 <div v-for="child in navigation.children" :key="child">
-                  <div class="nav-item" @click="onNavigation(child)">{{ child }}</div>
+                  <div class="nav-item" @click="onNavigation(child)">
+                    {{ child | toNavTitle }}
+                  </div>
                   <div class="vertical-spacer-sm"></div>
                 </div>
               </v-expansion-panel-content>
