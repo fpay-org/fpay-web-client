@@ -11,19 +11,18 @@ import reports from "./views/console/reports/Reports";
 import officers from "./views/console/user/Officers";
 import drivers from "./views/console/user/Drivers";
 import settings from "./views/console/settings/Settings";
-import profile from "./views/console/profile";
+import profile from "./views/console/profile/Profile";
 
 Vue.use(Router);
 
 export default new Router({
-  
   routes: [
     {
       path: "/",
       component: home
     },
     {
-    path: "/console",
+      path: "/console",
       component: console,
       children: [
         {
@@ -55,6 +54,10 @@ export default new Router({
           component: settings
         },
         {
+          path: "profile",
+          component: profile
+        },
+        {
           path: "",
           redirect: "analytics"
         },
@@ -75,7 +78,7 @@ export default new Router({
     //   //   import(/* webpackChunkName: "about" */ "./views/About.vue")
     // }
   ],
- 
+
   scrollBehavior: to => {
     if (to.hash) {
       return { selector: to.hash };
