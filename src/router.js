@@ -11,7 +11,10 @@ import reports from "./views/console/reports/Reports";
 import officers from "./views/console/user/Officers";
 import drivers from "./views/console/user/Drivers";
 import settings from "./views/console/settings/Settings";
+import myProfile from "./views/console/profile/MyProfile";
+import editMyProfile from "./views/console/profile/EditMyProfile";
 import profile from "./views/console/profile/Profile";
+import editProfile from "./views/console/profile/EditProfile";
 
 Vue.use(Router);
 
@@ -54,8 +57,20 @@ export default new Router({
           component: settings
         },
         {
-          path: "profile",
+          path: "me",
+          component: myProfile
+        },
+        {
+          path: "me/edit",
+          component: editMyProfile
+        },
+        {
+          path: "profile/:officer_id",
           component: profile
+        },
+        {
+          path: "profile/:officer_id/edit",
+          component: editProfile
         },
         {
           path: "",

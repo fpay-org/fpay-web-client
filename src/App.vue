@@ -40,6 +40,10 @@ export default {
 <style lang="scss">
 @import "../node_modules/leaflet/dist/leaflet.css";
 
+.vertical-spacer-lg {
+  height: 2rem;
+}
+
 .vertical-spacer {
   height: 1rem;
 }
