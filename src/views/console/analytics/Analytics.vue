@@ -33,7 +33,7 @@
       </div>
     </v-card>
 
-    <div class="vertical-spacer"></div>
+    <!-- <div class="vertical-spacer"></div>
 
     <v-card elevation="1">
       <div class="row">
@@ -65,7 +65,7 @@
           <ve-line :data="chartData"></ve-line>
         </div>
       </div>
-    </v-card>
+    </v-card> -->
   </v-container>
 </template>
 

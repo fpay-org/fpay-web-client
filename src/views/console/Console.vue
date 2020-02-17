@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app>
     <v-navigation-drawer v-model="drawer" app clipped>
       <v-list dense nav>
         <div v-for="navigation in navigations" :key="navigation.id">
@@ -13,7 +13,9 @@
               </v-expansion-panel-header>
               <v-expansion-panel-content>
                 <div v-for="child in navigation.children" :key="child">
-                  <div class="nav-item" @click="onNavigation(child)">{{ child }}</div>
+                  <div class="nav-item" @click="onNavigation(child)">
+                    {{ child | toNavTitle }}
+                  </div>
                   <div class="vertical-spacer-sm"></div>
                 </div>
               </v-expansion-panel-content>
@@ -31,9 +33,7 @@
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>
-                {{
-                navigation.id | toNavTitle
-                }}
+                {{ navigation.id | toNavTitle }}
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -45,6 +45,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>FPAY Console</v-toolbar-title>
       <v-spacer></v-spacer>
+      <span v-if="!!me">{{ me.first_name }}</span>
       <v-menu offset-y open-on-hover transition="slide-y-transition">
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
@@ -53,8 +54,8 @@
         </template>
         <v-list nav min-width="180">
           <div class="row justify-center">
-            <v-avatar size="120">
-              <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="User avatar here" />
+            <v-avatar v-if="!!me" size="120">
+              <img :src="me.avatar_url" alt="User avatar here" />
             </v-avatar>
           </div>
           <div class="vertical-spacer-sm"></div>
@@ -80,6 +81,9 @@
 </template>
 
 <script>
+import { getToken } from "../../services/jwt";
+import { me } from "../../services/auth";
+
 export default {
   name: "console",
   props: {
@@ -87,6 +91,7 @@ export default {
   },
   data: () => ({
     drawer: null,
+    me: null,
     dropdown: ["Profile", "Log Out"],
     navigations: [
       {
@@ -118,8 +123,9 @@ export default {
       }
     ]
   }),
-
-  created() {},
+  created() {
+    this.fetchMe();
+  },
   methods: {
     onNavigation(id) {
       const path = `/console/${id}`;
@@ -128,15 +134,18 @@ export default {
     onDropClick(name) {
       switch (name) {
         case "Profile":
-          this.$router.push({ path: "/console/profile" });
+          this.$router.push({ path: "/console/me" });
           break;
         case "Log Out":
           this.$router.push({ path: "/components/dialogs/login" });
           break;
-
-        default:
-          break;
       }
+    },
+    fetchMe() {
+      const token = getToken();
+      me(token).then(res => {
+        this.me = res.data.data;
+      });
     }
   },
   filters: {
