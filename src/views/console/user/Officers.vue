@@ -17,8 +17,8 @@
           :headers="headers"
           :items="officers"
           :items-per-page="5"
-          class="elevation-1"
-          @click:row="log($event)"
+          class="elevation-1 table-item"
+          @click:row="onItemClick($event)"
         ></v-data-table>
       </div>
     </div>
@@ -66,8 +66,8 @@ export default {
         })
         .catch(err => console.log(err));
     },
-    log(event) {
-      console.log(event.officer_id);
+    onItemClick(event) {
+      this.$router.push({ path: `/console/profile/${event.officer_id}` });
     }
   },
   created() {
@@ -79,5 +79,9 @@ export default {
 <style lang="scss" scoped>
 tr {
   color: blue !important;
+}
+
+.table-item {
+  cursor: pointer;
 }
 </style>
