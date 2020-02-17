@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div class="row header-row">
-      <h1>Officer profile</h1>
+      <h1>Your profile</h1>
       <v-spacer></v-spacer>
       <v-btn icon color="blue" @click="onEdit()">
         <v-icon>mdi-account-edit</v-icon>
@@ -13,12 +13,12 @@
     <div v-if="!isLoading">
       <div class="row justify-center">
         <v-avatar size="300">
-          <img :src="user.avatar_url" alt="User avatar here" />
+          <img :src="me.avatar_url" alt="User avatar here" />
         </v-avatar>
       </div>
       <div class="vertical-spacer-lg"></div>
       <div class="row justify-center">
-        {{ user.first_name }} {{ user.last_name }}
+        {{ me.first_name }} {{ me.last_name }}
       </div>
       <div class="vertical-spacer-lg"></div>
       <v-card outlined>
@@ -30,40 +30,31 @@
           <div class="row card-content justify-content-around">
             <div>
               Officer ID:&nbsp;
-              <span>{{ user.officer_id }} </span>
+              <span>{{ me.officer_id }} </span>
             </div>
             <div>
               Role:&nbsp;
-              <span>{{ user.permission_level }} </span>
+              <span>{{ me.permission_level }} </span>
             </div>
             <div>
               Police Station:&nbsp;
-              <span>{{ user.police_station }} </span>
+              <span>{{ me.police_station }} </span>
             </div>
           </div>
           <div class="row card-content justify-content-around">
             <div>
               NIC:&nbsp;
-              <span>{{ user.nic }} </span>
+              <span>{{ me.nic }} </span>
             </div>
             <div>
               Contact Number:&nbsp;
-              <span>{{ user.contact_number }} </span>
+              <span>{{ me.contact_number }} </span>
             </div>
             <div>
               Email:&nbsp;
-              <span>{{ user.email }} </span>
+              <span>{{ me.email }} </span>
             </div>
           </div>
-        </v-card-text>
-      </v-card>
-      <div class="vertical-spacer"></div>
-      <v-card outlined>
-        <v-card-subtitle>
-          Officer Statistics
-        </v-card-subtitle>
-        <v-card-text>
-          <ve-line :data="chartData"></ve-line>
         </v-card-text>
       </v-card>
     </div>
@@ -71,54 +62,39 @@
 </template>
 
 <script>
-import { fetchOne } from "../../../services/officers";
-import { VeLine } from "v-charts";
+import { getToken } from "../../../services/jwt";
+import { me } from "../../../services/auth";
 
 export default {
-  name: "profile",
+  name: "MyProfile",
   data() {
     return {
       isLoading: true,
-      user: {},
-      chartData: {
-        columns: ["date", "sales"],
-        rows: [
-          { date: "MON", sales: 123 },
-          { date: "FEB", sales: 1223 },
-          { date: "MAR", sales: 2123 },
-          { date: "APR", sales: 4123 },
-          { date: "MAY", sales: 3123 },
-          { date: "JUNE", sales: 7123 }
-        ]
-      }
+      me: {}
     };
   },
-  components: {
-    VeLine
-  },
   methods: {
-    fetchOfficer(officer_id) {
-      fetchOne(officer_id).then(res => {
-        this.user = res.data.data;
-        console.log(this.user);
-        this.isLoading = false;
-      });
+    fetchMe() {
+      const token = getToken();
+      me(token)
+        .then(res => {
+          console.log(res.data.data);
+          this.me = res.data.data;
+          this.isLoading = false;
+        })
+        .catch(err => console.log(err));
     },
     onEdit() {
-      this.$router.push({
-        path: `/console/profile/${this.user.officer_id}/edit`
-      });
+      this.$router.push({ path: "/console/me/edit" });
     }
   },
   created() {
-    const officer_id = this.$route.params.officer_id;
-    console.log(officer_id);
-    this.fetchOfficer(officer_id);
+    this.fetchMe();
   }
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .card-content {
   margin: 1px;
 }
