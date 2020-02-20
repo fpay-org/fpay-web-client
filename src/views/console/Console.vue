@@ -106,6 +106,11 @@ export default {
         expansion: false
       },
       {
+        id: "penalties",
+        icon: "mdi-clipboard-outline",
+        expansion: false
+      },
+      {
         id: "reports",
         icon: "mdi-file-chart",
         expansion: false
@@ -185,5 +190,12 @@ export default {
 
 .vertical-spacer-sm {
   height: 1rem;
+}
+
+.back-full {
+  position: absolute;
+  width: 100%;
+  height: 400px;
+  background-color: #c4dfe4;
 }
 </style>

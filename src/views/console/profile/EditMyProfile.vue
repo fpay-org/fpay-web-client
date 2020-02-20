@@ -6,7 +6,7 @@
       <v-btn icon @click="onCancel()">
         <v-icon>mdi-close</v-icon>
       </v-btn>
-      <v-btn icon color="blue">
+      <v-btn icon color="blue" @click="onSubmit()">
         <v-icon>mdi-check</v-icon>
       </v-btn>
     </div>
@@ -18,11 +18,29 @@
         <v-avatar size="300">
           <img :src="me.avatar_url" alt="User avatar here" />
         </v-avatar>
+        <v-avatar color="#00000088" class="overlay" size="300">
+          <div class="upload-btn-wrapper">
+            <!-- <button class="btn">Upload a file</button> -->
+            <v-icon class="icon-upload">mdi-upload</v-icon>
+            <input
+              type="file"
+              ref="file"
+              name="upload_image"
+              @change="onUpload()"
+            />
+          </div>
+        </v-avatar>
       </div>
       <div class="vertical-spacer-lg"></div>
       <v-card outlined>
         <v-card-text>
           <form role="form">
+            <base-input
+              placeholder="Officer ID"
+              :disabled="!hasPermissions"
+              :valid="validUsername"
+              v-model="me.officer_id"
+            ></base-input>
             <base-input
               placeholder="First Name"
               :disabled="!hasPermissions"
@@ -73,6 +91,7 @@
 <script>
 import { getToken } from "../../../services/jwt";
 import { me } from "../../../services/auth";
+import { updateOfficer } from "../../../services/admin";
 
 export default {
   name: "EditMyProfile",
@@ -98,7 +117,6 @@ export default {
       const token = getToken();
       me(token)
         .then(res => {
-          console.log(res.data.data);
           this.me = res.data.data;
           this.isLoading = false;
         })
@@ -106,6 +124,20 @@ export default {
     },
     onCancel() {
       this.$router.push({ path: "/console/me" });
+    },
+    onSubmit() {
+      updateOfficer(this.me).then(res => {
+        console.log(res.data.data);
+      });
+    },
+    onUpload() {
+      const file = this.$refs.file.files[0];
+      console.log(file);
+
+      let formData = new FormData();
+      formData.append("officer_image", file);
+
+      // Upload image
     }
   },
   created() {
@@ -115,6 +147,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.upload-btn-wrapper input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
 .card-content {
   margin: 1px;
 }
@@ -125,5 +171,15 @@ export default {
 
 .header-row {
   margin: 1px;
+}
+
+.overlay {
+  position: absolute;
+}
+
+.icon-upload {
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
 }
 </style>

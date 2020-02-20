@@ -1,9 +1,13 @@
 <template>
   <v-container>
     <div>
-      <h1>
-        Officers
-      </h1>
+      <div class="row mx-0">
+        <h1>Officers</h1>
+        <v-spacer></v-spacer>
+        <v-btn icon color="blue" @click="onAdd()">
+          <v-icon>mdi-account-plus</v-icon>
+        </v-btn>
+      </div>
 
       <div class="vertical-spacer"></div>
 
@@ -26,7 +30,7 @@
 </template>
 
 <script>
-import { fetchAll } from "../../../services/officers";
+import { fetchAll } from "../../../../services/officers";
 
 export default {
   name: "officer",
@@ -63,11 +67,15 @@ export default {
               permission_level: officer.permission_level
             };
           });
+          console.log(this.officers);
         })
         .catch(err => console.log(err));
     },
     onItemClick(event) {
       this.$router.push({ path: `/console/profile/${event.officer_id}` });
+    },
+    onAdd() {
+      this.$router.push({ path: `/console/officers/add` });
     }
   },
   created() {

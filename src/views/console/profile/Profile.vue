@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="row header-row">
+    <div class="row mx-0">
       <h1>Officer profile</h1>
       <v-spacer></v-spacer>
       <v-btn icon color="blue" @click="onEdit()">
