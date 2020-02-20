@@ -11,7 +11,11 @@
     <div>
       <base-dropdown title="District" class="btn-filter">
         <div class="nav-filter" @click="onFilterAdd()">
-          Colombo
+          <div v-for="name in dropdown" :key="name">
+            <v-list-item link @click="onDropClick(name)">
+              <v-list-item-title>{{ name }}</v-list-item-title>
+            </v-list-item>
+          </div>
         </div>
       </base-dropdown>
     </div>
@@ -80,14 +84,15 @@ export default {
         colors: ["#ffffff", "#d2f234"]
       },
       chartData: {
-        columns: ["date", "sales"],
+        columns: ["date", "violations"],
         rows: [
-          { date: "MON", sales: 123 },
-          { date: "FEB", sales: 1223 },
-          { date: "MAR", sales: 2123 },
-          { date: "APR", sales: 4123 },
-          { date: "MAY", sales: 3123 },
-          { date: "JUNE", sales: 7123 }
+          { date: "MON", violations: 24 },
+          { date: "TUE", violations: 18 },
+          { date: "WED", violations: 30 },
+          { date: "THU", violations: 22 },
+          { date: "FRI", violations: 15 },
+          { date: "SAT", violations: 28 },
+          { date: "SUN", violations: 26 }
         ]
       },
       paymentData: {
@@ -105,7 +110,18 @@ export default {
         click: function(e) {
           console.log(e.name);
         }
-      }
+      },
+      dropdown: [
+        "Colombo",
+        "Anuradapura",
+        "Jaffana",
+        "Matara",
+        "Gampaha",
+        "Kandy",
+        "Galle",
+        "Kaluthara",
+        "Puttlam"
+      ]
     };
   },
   components: {
@@ -113,9 +129,7 @@ export default {
     VeHistogram
   },
   methods: {
-    onFilterAdd() {
-      console.log("Sex");
-    }
+    onDropClick(name) {}
   }
 };
 </script>
@@ -128,10 +142,6 @@ export default {
 
 .icon-menu {
   color: white;
-}
-
-.btn-filter {
-  color: blue;
 }
 
 .nav-filter {

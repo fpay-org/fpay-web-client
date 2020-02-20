@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { fetchAll } from "../../../services/drivers";
+import { fetchAll } from "../../../../services/drivers";
 
 export default {
   name: "driver",
